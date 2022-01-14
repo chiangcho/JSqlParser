@@ -364,10 +364,15 @@ public class SelectDeParser extends AbstractDeParser<PlainSelect>
         }
         if (fetch.getFetchJdbcParameter() != null) {
             buffer.append(fetch.getFetchJdbcParameter().toString());
+            buffer.append(" ");
         } else {
-            buffer.append(fetch.getRowCount());
+            if (fetch.getRowCount() > 0) {
+                buffer.append(fetch.getRowCount());
+                buffer.append(" ");
+            }
+            
         }
-        buffer.append(" ").append(fetch.getFetchParam()).append(" ONLY");
+        buffer.append(fetch.getFetchParam()).append(" ONLY");
 
     }
 

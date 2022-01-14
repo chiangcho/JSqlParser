@@ -5019,5 +5019,16 @@ public class SelectTest {
         isolation = ((PlainSelect) select.getSelectBody()).getWithIsolation().getIsolation();
         assertEquals("Cs", isolation);
         assertSqlCanBeParsedAndDeparsed(statement);
+
+        statement = "SELECT * FROM mytable RR WHERE mytable.col = 9";
+        assertSqlCanBeParsedAndDeparsed(statement);
+
+        statement = "SELECT * FROM mytable RR WHERE mytable.col LIKE '%'|| ? | |'%'";
+        String expected = "SELECT * FROM mytable RR WHERE mytable.col LIKE '%' || ? || '%'";
+        Statement parsed = CCJSqlParserUtil.parse(statement);
+        assertStatementCanBeDeparsedAs(parsed, expected);
+
+        statement = "SELECT * FROM mytable RR WHERE mytable.col = 9 FETCH FIRST ROWS ONLY";
+        assertSqlCanBeParsedAndDeparsed(statement);
     }
 }

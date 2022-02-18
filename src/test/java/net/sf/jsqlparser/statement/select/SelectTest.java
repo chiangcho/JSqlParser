@@ -623,6 +623,11 @@ public class SelectTest {
     }
 
     @Test
+    public void testLimitAlias() throws JSQLParserException {
+        assertSqlCanBeParsedAndDeparsed("SELECT * FROM mytable limit");
+    }
+
+    @Test
     public void testLimitOffsetKeyWordAsNamedParameter2() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("SELECT * FROM mytable LIMIT :limit OFFSET :offset");
     }

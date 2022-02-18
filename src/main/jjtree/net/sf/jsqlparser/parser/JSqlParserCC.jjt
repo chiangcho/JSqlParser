@@ -166,6 +166,10 @@ TOKEN: /* SQL Keywords. prefixed with K_ to avoid name clashes */
 |   <K_COLUMN:"COLUMN">
 |   <K_COLUMNS:"COLUMNS">
 |   <K_COMMA: ",">
+|   <K_COLON: ":">
+|   <K_OPEN_BRACE: "(">
+|   <K_QUESTION_MARK: "?">
+|   <K_SINGLE_QUOTATION: "'">
 |   <K_COMMIT:"COMMIT">
 |   <K_COMMENT:"COMMENT">
 |   <K_CONNECT:"CONNECT">
@@ -1697,10 +1701,21 @@ String RelObjectName() :
 
 String RelObjectNameWithoutStart() :
 {    Token tk = null; String result = null; }
-{
+{ 
     (result = RelObjectNameWithoutValue() | tk=<K_TOP> | tk=<K_VALUE> | tk=<K_VALUES>
-        | tk=<K_INTERVAL> )
-
+        | tk=<K_INTERVAL> 
+        |
+        LOOKAHEAD( { getToken(1).kind == K_LIMIT &&
+         (getToken(2).kind != S_LONG  
+         && getToken(2).kind != K_OPEN_BRACE
+         && getToken(2).kind != K_QUESTION_MARK
+         && getToken(2).kind != K_COLON
+         && getToken(2).kind != K_SINGLE_QUOTATION        
+         && getToken(2).kind != K_ALL        
+         && getToken(2).kind != S_CHAR_LITERAL
+         && getToken(3).kind != K_COMMA
+         ) } ) tk=<K_LIMIT>
+    )
     {
 		if (tk!=null) result=tk.image;
 		return result;

@@ -52,9 +52,10 @@ public class Fetch {
 
     @Override
     public String toString() {
+        String rowCountStr = rowCount == 0 ? "" : Long.toString(rowCount) + " ";
         return " FETCH " + (isFetchParamFirst ? "FIRST" : "NEXT") + " " 
-                + (fetchJdbcParameter!=null ? fetchJdbcParameter.toString() : 
-                    Long.toString(rowCount)) + " " + fetchParam + " ONLY";
+                + (fetchJdbcParameter!=null ? fetchJdbcParameter.toString() + " " : 
+                    rowCountStr) + fetchParam + " ONLY";
     }
 
     public Fetch withRowCount(long rowCount) {

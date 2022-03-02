@@ -625,7 +625,7 @@ public class SelectTest {
     @Test
     public void testLimitAlias() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("SELECT * FROM mytable limit");
-    }
+    }  
 
     @Test
     public void testLimitOffsetKeyWordAsNamedParameter2() throws JSQLParserException {
@@ -5036,4 +5036,17 @@ public class SelectTest {
         statement = "SELECT * FROM mytable RR WHERE mytable.col = 9 FETCH FIRST ROWS ONLY";
         assertSqlCanBeParsedAndDeparsed(statement);
     }
+
+    
+    @Test
+    public void testExplainAlias() throws JSQLParserException {
+        assertSqlCanBeParsedAndDeparsed("SELECT * FROM mytable explain");
+        assertSqlCanBeParsedAndDeparsed("SELECT rr.explain FROM mytable rr");
+    }    
+
+    @Test
+    public void testApplyAlias() throws JSQLParserException {
+        assertSqlCanBeParsedAndDeparsed("SELECT * FROM mytable apply");
+        assertSqlCanBeParsedAndDeparsed("SELECT rr.apply FROM mytable rr");
+    }  
 }

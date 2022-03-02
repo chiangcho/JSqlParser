@@ -1704,7 +1704,9 @@ String RelObjectNameWithoutStart() :
 {    Token tk = null; String result = null; }
 { 
     (result = RelObjectNameWithoutValue() | tk=<K_TOP> | tk=<K_VALUE> | tk=<K_VALUES>
-        | tk=<K_INTERVAL> 
+        | tk=<K_INTERVAL>
+        | tk=<K_EXPLAIN>
+        | tk=<K_APPLY>
         |
         LOOKAHEAD( { getToken(1).kind == K_LIMIT &&
          (getToken(2).kind != S_LONG  
@@ -1732,7 +1734,7 @@ String RelObjectNameExt():
 }
 {
     ( result=RelObjectName() | tk=<K_ALL> | tk=<K_ANY>  | tk=<K_SOME> | tk=<K_LEFT> | tk=<K_RIGHT> | tk=<K_SET>
-        | tk=<K_DOUBLE> | tk=<K_IF> | tk=<K_IIF> | tk=<K_OPTIMIZE> | tk=<K_LIMIT>
+        | tk=<K_DOUBLE> | tk=<K_IF> | tk=<K_IIF> | tk=<K_OPTIMIZE> | tk=<K_LIMIT> | tk=<K_EXPLAIN> | tk=<K_APPLY>
         | tk=<K_OFFSET> | tk=<K_PROCEDURE> | tk=<K_PUBLIC> 
         | tk=<K_CASEWHEN> | tk=<K_IN> | tk=<K_GROUPING>  )
     {

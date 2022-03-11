@@ -114,7 +114,7 @@ TOKEN_MGR_DECLS : {
 
 SKIP:
 {
-    <WHITESPACE: " " | "\t" | "\r" | "\n">
+    <WHITESPACE: " " | "\t" | "\r" | "\n" | "　">
 }
 
 TOKEN: /* SQL Keywords. prefixed with K_ to avoid name clashes */
